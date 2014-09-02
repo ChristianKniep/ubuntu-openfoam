@@ -1,9 +1,6 @@
 FROM ubuntu:12.04
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
-ENV http_proxy http://129.184.89.14:80
-
-
 RUN echo "deb http://www.openfoam.org/download/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
 RUN apt-get update 
 ## cluser
