@@ -15,7 +15,6 @@ RUN apt-get install -y vim gnuplot
 ## SSHD
 RUN apt-get install -y openssh-server xauth
 RUN sed -i -e 's/#X11UseLocalhost.*/X11UseLocalhost no/' /etc/ssh/sshd_config
-RUN sed -i -e 's/#UseLogin.*/UseLogin yes/' /etc/ssh/sshd_config
 ### openfoam
 RUN apt-get install -y libgl1-mesa-glx libgmp10 libqt4-opengl libqtcore4 libqtgui4 libboost-thread1.46.1
 ADD ./dpkg /dpkg/
@@ -23,5 +22,6 @@ RUN apt-get install -y binutils cpp-4.4 g++-4.4 gcc-4.4 gcc-4.4-base libboost-da
 RUN dpkg -i /dpkg/*
 RUN apt-get install -y --force-yes openfoam230
 RUN apt-get install -y --force-yes paraviewopenfoam410 
+RUN echo "source /opt/openfoam230/etc/bashrc" >> /etc/bashrc
 
 
