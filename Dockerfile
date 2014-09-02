@@ -15,6 +15,7 @@ RUN apt-get install -y vim gnuplot
 ## SSHD
 RUN apt-get install -y openssh-server xauth
 RUN sed -i -e 's/#X11UseLocalhost.*/X11UseLocalhost no/' /etc/ssh/sshd_config
+RUN mkdir -p /var/run/sshd
 ### openfoam
 RUN apt-get install -y libgl1-mesa-glx libgmp10 libqt4-opengl libqtcore4 libqtgui4 libboost-thread1.46.1
 ADD ./dpkg /dpkg/
