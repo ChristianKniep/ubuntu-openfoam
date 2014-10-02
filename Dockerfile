@@ -30,5 +30,7 @@ RUN if [ -f /tmp/ssh/*.pub ];then mkdir -p /root/.ssh; cat /tmp/ssh/*.pub >> /ro
 ## create a compute node (slurm)
 RUN apt-get install -y slurm-llnl
 
+RUN apt-get install -y curl
+
 CMD /usr/sbin/sshd -D
 
