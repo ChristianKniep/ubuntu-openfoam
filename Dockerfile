@@ -28,7 +28,7 @@ ADD ssh /tmp/ssh/
 RUN if [ -f /tmp/ssh/*.pub ];then mkdir -p /root/.ssh; cat /tmp/ssh/*.pub >> /root/.ssh/authorized_keys;chmod 600 /root/.ssh/authorized_keys;chmod 700 /root/.ssh;fi
 
 ## create a compute node (slurm)
-RUN apt-get install -y slurm-lnll
+RUN apt-get install -y slurm-llnl
 
 CMD /usr/sbin/sshd -D
 
