@@ -2,7 +2,7 @@ FROM ubuntu:12.04
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
 RUN echo "deb http://www.openfoam.org/download/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
-RUN apt-get update 
+RUN echo "2014-10-02.1";apt-get update 
 ## cluser
 RUN mkdir -p /chome
 RUN useradd -u 2000 -M -d /chome/cluser cluser
@@ -25,7 +25,10 @@ USER root
 ENV HOME /root
 RUN echo "source /opt/openfoam230/etc/bashrc" >> /root/.bashrc
 ADD ssh /tmp/ssh/
-RUN if [ -f /tmp/ssh/*.pub ];then mkdir -p /root/.ssh; cat /tmp/ssh/* >> /root/.ssh/authorized_keys;chmod 600 /root/.ssh/authorized_keys;chmod 700 /root/.ssh;fi
+RUN if [ -f /tmp/ssh/*.pub ];then mkdir -p /root/.ssh; cat /tmp/ssh/*.pub >> /root/.ssh/authorized_keys;chmod 600 /root/.ssh/authorized_keys;chmod 700 /root/.ssh;fi
+
+## create a compute node (slurm)
+RUN apt-get install -y slurm-lnll
 
 CMD /usr/sbin/sshd -D
 
