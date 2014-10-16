@@ -1,11 +1,12 @@
-FROM ubuntu:12.04
+FROM qnib/ubuntu12_compute
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
 RUN echo "deb http://www.openfoam.org/download/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
 RUN echo "2014-10-02.1";apt-get update 
 ## cluser
 RUN mkdir -p /chome
-RUN useradd -u 2000 -M -d /chome/cluser cluser
+RUN getent passwd cluser && userdel -f cluser
+RUN useradd -u 2000 -m -d /chome/cluser -s /bin/bash cluser
 RUN echo "cluser:cluser"|chpasswd
 ## basic install
 RUN apt-get install -y vim gnuplot
@@ -23,7 +24,7 @@ RUN apt-get install -y --force-yes paraviewopenfoam410
 RUN echo "root:root" | chpasswd
 USER root
 ENV HOME /root
-RUN echo "source /opt/openfoam230/etc/bashrc" >> /root/.bashrc
+RUN echo "source /opt/openfoam230/etc/bashrc" >> /etc/bashrc
 ADD ssh /tmp/ssh/
 RUN if [ -f /tmp/ssh/*.pub ];then mkdir -p /root/.ssh; cat /tmp/ssh/*.pub >> /root/.ssh/authorized_keys;chmod 600 /root/.ssh/authorized_keys;chmod 700 /root/.ssh;fi
 
@@ -32,5 +33,9 @@ RUN apt-get install -y slurm-llnl
 
 RUN apt-get install -y curl
 
-CMD /usr/sbin/sshd -D
+ADD root/populate_hosts.sh /root/
+ADD root/start_node.sh /root/start_node.sh
+RUN echo "UseDNS no" >> /etc/ssh/sshd_config
+
+CMD /root/start_node.sh
 
