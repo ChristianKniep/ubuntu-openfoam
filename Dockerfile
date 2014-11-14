@@ -1,18 +1,8 @@
-FROM ubuntu:12.04
+FROM qnib/ubuntu_compute:14.10
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
-RUN echo "deb http://www.openfoam.org/download/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
+RUN echo "deb http://www.openfoam.org/download/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/openfoam.list
 RUN echo "2014-10-02.1";apt-get update 
-## cluser
-RUN mkdir -p /chome
-RUN useradd -u 2000 -M -d /chome/cluser cluser
-RUN echo "cluser:cluser"|chpasswd
-## basic install
-RUN apt-get install -y vim gnuplot
-## SSHD
-RUN apt-get install -y openssh-server xauth
-RUN sed -i -e 's/#X11UseLocalhost.*/X11UseLocalhost no/' /etc/ssh/sshd_config
-RUN mkdir -p /var/run/sshd
 ### openfoam
 RUN apt-get install -y libgl1-mesa-glx libgmp10 libqt4-opengl libqtcore4 libqtgui4 libboost-thread1.46.1
 ADD ./dpkg /dpkg/
@@ -20,17 +10,9 @@ RUN apt-get install -y binutils cpp-4.4 g++-4.4 gcc-4.4 gcc-4.4-base libboost-da
 RUN dpkg -i /dpkg/*
 RUN apt-get install -y --force-yes openfoam230
 RUN apt-get install -y --force-yes paraviewopenfoam410 
-RUN echo "root:root" | chpasswd
-USER root
-ENV HOME /root
+
+# ENV
 RUN echo "source /opt/openfoam230/etc/bashrc" >> /root/.bashrc
-ADD ssh /tmp/ssh/
-RUN if [ -f /tmp/ssh/*.pub ];then mkdir -p /root/.ssh; cat /tmp/ssh/*.pub >> /root/.ssh/authorized_keys;chmod 600 /root/.ssh/authorized_keys;chmod 700 /root/.ssh;fi
 
-## create a compute node (slurm)
-RUN apt-get install -y slurm-llnl
-
-RUN apt-get install -y curl
-
-CMD /usr/sbin/sshd -D
+CMD supervisord -c /etc/supervisord.conf
 
