@@ -1,4 +1,4 @@
-FROM qnib/ubuntu_compute:14.10
+FROM qnib/ubuntu_compute:12.04
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
 RUN echo "deb http://www.openfoam.org/download/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/openfoam.list
@@ -15,9 +15,9 @@ RUN apt-get install -y libc-bin libc-dev-bin libc6 libc6-dev libdrm-dev libdrm-n
                        mesa-common-dev qt4-linguist-tools qt4-qmake \
                        x11proto-core-dev x11proto-input-dev x11proto-kb-dev x11proto-xext-dev xorg-sgml-doctools xtrans-dev zlib1g-dev
 RUN apt-get install -y libscotch-5.1 libscotch-dev 
-RUN apt-get install -y binutils libboost-date-time1.53-dev libboost-date-time1.53.0 libboost-dev 
-RUN apt-get install -y libboost-program-options-dev libboost-program-options1.53.0 libboost-serialization1.53-dev libboost-serialization1.53.0 
-RUN apt-get install -y libboost-thread-dev libboost-thread1.53-dev libboost1.53-dev
+RUN apt-get install -y binutils libboost-date-time1.46-dev libboost-date-time1.46.1 libboost-dev 
+RUN apt-get install -y libboost-program-options-dev libboost-program-options1.46.1 libboost-serialization1.46-dev libboost-serialization1.46.1
+RUN apt-get install -y libboost-thread-dev libboost-thread1.46-dev libboost1.46-dev
 
 #ADD ./dpkg /dpkg/
 #RUN dpkg -i /dpkg/*
