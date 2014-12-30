@@ -21,8 +21,7 @@ RUN apt-get install -y libboost-thread-dev libboost-thread1.46-dev libboost1.46-
 
 #ADD ./dpkg /dpkg/
 #RUN dpkg -i /dpkg/*
-RUN apt-get install -y --force-yes openfoam230
-RUN apt-get install -y --force-yes paraviewopenfoam410 
+RUN apt-get install -y --force-yes openfoam220
 
 # ENV
 RUN echo "source /opt/openfoam230/etc/bashrc" >> /root/.bashrc
