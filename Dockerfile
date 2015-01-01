@@ -19,7 +19,7 @@ RUN apt-get install -y binutils libboost-date-time1.46-dev libboost-date-time1.4
 RUN apt-get install -y libboost-program-options-dev libboost-program-options1.46.1 libboost-serialization1.46-dev libboost-serialization1.46.1
 RUN apt-get install -y libboost-thread-dev libboost-thread1.46-dev libboost1.46-dev
 
-RUN apt-get install -y --force-yes openfoam222
+RUN apt-get install -y --force-yes openfoam211
 
 # ENV
 RUN echo "source /opt/openfoam230/etc/bashrc" >> /root/.bashrc
