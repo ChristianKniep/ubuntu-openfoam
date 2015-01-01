@@ -19,10 +19,13 @@ RUN apt-get install -y binutils libboost-date-time1.46-dev libboost-date-time1.4
 RUN apt-get install -y libboost-program-options-dev libboost-program-options1.46.1 libboost-serialization1.46-dev libboost-serialization1.46.1
 RUN apt-get install -y libboost-thread-dev libboost-thread1.46-dev libboost1.46-dev
 
+RUN apt-get install -y build-essential
+
 RUN apt-get install -y --force-yes openfoam211
 
+RUN sed -i -e 's/   allowSystemOperations.*/   allowSystemOperations   1;/' $(find /opt/openfoam*/etc -name controlDict|head -n1)
 # ENV
-RUN echo "source /opt/openfoam230/etc/bashrc" >> /root/.bashrc
+RUN echo "source $(find /opt/openfoam*/etc -name bashrc|head -n1)" >> /root/.bashrc
 
 CMD supervisord -c /etc/supervisord.conf
 
