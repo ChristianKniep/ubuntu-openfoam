@@ -20,8 +20,11 @@ RUN apt-get install -y libboost-program-options-dev libboost-program-options1.46
 RUN apt-get install -y libboost-thread-dev libboost-thread1.46-dev libboost1.46-dev
 
 RUN apt-get install -y build-essential
+RUN apt-get install -y libptscotch-dev
 
-RUN apt-get install -y --force-yes openfoam222
+ADD dpkg /opt/dpkg/
+RUN dpkg -i /opt/dpkg/*
+RUN apt-get install -y --force-yes openfoam230
 
 RUN sed -i -e 's/   allowSystemOperations.*/   allowSystemOperations   1;/' $(find /opt/openfoam*/etc -name controlDict|head -n1)
 # ENV
