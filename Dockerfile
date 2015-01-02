@@ -1,4 +1,4 @@
-FROM qnib/ubuntu_compute:12.04
+FROM qnib/compute:u12.04
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
 RUN echo "deb http://www.openfoam.org/download/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/openfoam.list
