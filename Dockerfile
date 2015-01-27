@@ -1,4 +1,4 @@
-FROM qnib/ubuntu_compute:14.10
+FROM qnib/u_compute:14.10
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
 RUN echo "deb http://www.openfoam.org/download/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/openfoam.list
@@ -22,10 +22,9 @@ RUN apt-get install -y libboost-thread-dev libboost-thread1.55-dev libboost1.55-
 #ADD ./dpkg /dpkg/
 #RUN dpkg -i /dpkg/*
 RUN apt-get install -y --force-yes openfoam231
-#RUN apt-get install -y --force-yes paraviewopenfoam410 
+RUN apt-get install -y --force-yes paraviewopenfoam410 
 
 # ENV
 RUN echo "source /opt/openfoam231/etc/bashrc" >> /root/.bashrc
 
-CMD supervisord -c /etc/supervisord.conf
 

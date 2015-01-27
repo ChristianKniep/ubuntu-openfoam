@@ -1,0 +1,9 @@
+u1410of231:
+  image: qnib/openfoam:u1410of231
+  #build: .
+  ports:
+   - "2222:22"
+  hostname: u1410of231
+  volumes:
+   - ./data:/data/
+  privileged: true
